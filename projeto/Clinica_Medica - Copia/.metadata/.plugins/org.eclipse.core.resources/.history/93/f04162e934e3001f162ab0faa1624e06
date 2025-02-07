@@ -1,0 +1,28 @@
+package entidades;
+
+public class Paciente extends Usuário{
+	public Paciente(String nome,String dataNascimento,String cpf, HistoricoMedico historico){ //CU
+		this.nome = nome;
+		this.dataNascimento = dataNascimento; 
+		this.cpf = cpf;
+		this.historico = historico; 
+	}
+	public void deletarCadastro() { // D
+		setNome(null);
+		setCpf(null);
+		setDataNascimento(null);
+		for(int i=0;i<historico.getConsultas().length;i++) 
+		{
+			historico.getConsultas()[i].deletarConsulta(); 
+		}
+		for(int i=0;i<historico.getExames().length;i++)
+		{
+			historico.getExames()[i].deletarExame();
+		}
+	}
+	@Override
+	public void lerCadastro() {           //R
+		System.out.println("Nome:"+ nome + "\n DataNascimento:" + dataNascimento +"\n CPF:" + cpf +"\n");
+	}
+	
+}

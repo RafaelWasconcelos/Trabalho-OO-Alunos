@@ -1,0 +1,112 @@
+package entidades; 
+
+public class Consulta  {
+	
+	String data,horário,status;
+	int duração; 
+	Paciente paciente; 
+	Médico medicoResponsável; 
+	int valor;
+	Prescrição prescriçãoRelacionada; 
+	
+	public Consulta()
+	{
+		
+	}
+	
+	public Consulta(String data, String horário, int duração, Paciente paciente,
+			Médico medicoResponsável, int valor) {                                 // CU
+		this.data = data;
+		this.horário = horário;
+		this.duração = duração;
+		this.paciente = paciente;
+		this.medicoResponsável = medicoResponsável;
+		this.valor = valor;
+		
+		
+		this.paciente.getHistorico().getConsulta().setData(data);  // na main do secretario cada consultas[] vai receber consulta
+		this.paciente.getHistorico().getConsulta().setHorário(horário);
+		this.paciente.getHistorico().getConsulta().setDuração(duração);
+		this.paciente.getHistorico().getConsulta().setPaciente(paciente);
+		this.paciente.getHistorico().getConsulta().setMedicoResponsável(medicoResponsável);
+		this.paciente.getHistorico().getConsulta().setValor(valor);
+		
+		this.medicoResponsável.getHistorico().getConsulta().setData(data);  // na main do secretario cada consultas[] vai receber consulta
+		this.medicoResponsável.getHistorico().getConsulta().setHorário(horário);
+		this.medicoResponsável.getHistorico().getConsulta().setDuração(duração);
+		this.medicoResponsável.getHistorico().getConsulta().setPaciente(paciente);
+		this.medicoResponsável.getHistorico().getConsulta().setMedicoResponsável(medicoResponsável);
+		this.medicoResponsável.getHistorico().getConsulta().setValor(valor);
+		
+		
+	}
+	public void deletarConsulta()      // D
+	{
+		data = null;
+		horário = null;
+		duração = (Integer) null;
+		paciente = null;
+		medicoResponsável = null;
+		valor = (Integer)null;
+		prescriçãoRelacionada=null; // pode dar ruim pois n estou indo nos atributos
+	}
+	
+	
+	
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
+	public String getHorário() {
+		return horário;
+	}
+	public void setHorário(String horário) {
+		this.horário = horário;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getDuração() {
+		return duração;
+	}
+	public void setDuração(int duração) {
+		this.duração = duração;
+	}
+	public Paciente getPaciente() {
+		return paciente;
+	}
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+	public Médico getMedicoResponsável() {
+		return medicoResponsável;
+	}
+	public void setMedicoResponsável(Médico medicoResponsável) {
+		this.medicoResponsável = medicoResponsável;
+	}
+	public int getValor() {
+		return valor;
+	}
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
+	public Prescrição getPrescriçãoRelacionada() {
+		return prescriçãoRelacionada;
+	}
+
+	public void setPrescriçãoRelacionada(Prescrição prescriçãoRelacionada) {
+		this.prescriçãoRelacionada = prescriçãoRelacionada;
+	}
+	
+	
+	
+	
+}
+
+

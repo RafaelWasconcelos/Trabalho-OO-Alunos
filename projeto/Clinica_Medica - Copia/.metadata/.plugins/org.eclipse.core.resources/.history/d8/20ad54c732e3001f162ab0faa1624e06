@@ -1,0 +1,27 @@
+package entidades;
+
+public class Medicamento {
+	String nomeMedicamento;
+	
+	public Medicamento()
+	{
+		
+	}
+	public Medicamento(String nomeMedicamento) { //CU 
+		this.nomeMedicamento = nomeMedicamento;
+	}
+	
+	public void deletarMedicamento() { // D
+		nomeMedicamento=null; 
+	}
+
+	public String getNomeMedicamento() {
+		return nomeMedicamento;
+	}
+
+	public void setNomeMedicamento(String nomeMedicamento) {
+		this.nomeMedicamento = nomeMedicamento;
+	} 
+	
+	
+}

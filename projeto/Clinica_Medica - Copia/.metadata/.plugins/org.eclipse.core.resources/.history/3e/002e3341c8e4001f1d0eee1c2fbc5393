@@ -1,0 +1,133 @@
+package entidades;
+
+public class Prescricao {
+	
+	Consulta consultaAssociada; 
+	Exame examesPrescritos[],exame; 
+	Medicamento medicamentoPrescritos[],medicamento;
+	String tipo, 
+	dataPrescricao, dataRealizacao, resultado, dataValidade; // na main do médico eu vou colocar que cada vetor de examesPrescritos vai receber exame. O mesmo com medicamento
+	int custo; 
+	
+	
+	public Prescricao(String tipo,String dataPrescrição, String dataRealização,String dataValidade,String nomeMedicamento, Consulta consultaAssociada, int custo) {
+		
+		this.exame = new Exame(); 
+		this.examesPrescritos = new Exame[100000];
+		this.medicamento = new Medicamento();
+		this.medicamentoPrescritos = new Medicamento [100000]; 
+		
+		
+		
+		this.exame.setTipo(tipo); 
+		this.exame.setDataPrescrição(dataPrescrição);
+		this.exame.setDataRealização(dataRealização); 
+		this.exame.setDataValidade(dataValidade); 
+		this.exame.setCusto(custo);
+		this.medicamento.setNomeMedicamento(nomeMedicamento);
+		this.consultaAssociada = consultaAssociada;
+	}
+
+
+	public Consulta getConsultaAssociada() {
+		return consultaAssociada;
+	}
+
+
+	public void setConsultaAssociada(Consulta consultaAssociada) {
+		this.consultaAssociada = consultaAssociada;
+	}
+
+
+	public Exame[] getExamesPrescritos() {
+		return examesPrescritos;
+	}
+
+
+	public void setExamesPrescritos(Exame[] examesPrescritos) {
+		this.examesPrescritos = examesPrescritos;
+	}
+
+
+	public Exame getExame() {
+		return exame;
+	}
+
+
+	public void setExame(Exame exame) {
+		this.exame = exame;
+	}
+
+
+	public Medicamento[] getMedicamentoPrescritos() {
+		return medicamentoPrescritos;
+	}
+
+
+	public void setMedicamentoPrescritos(Medicamento[] medicamentoPrescritos) {
+		this.medicamentoPrescritos = medicamentoPrescritos;
+	}
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
+	public String getDataPrescricao() {
+		return dataPrescricao;
+	}
+
+
+	public void setDataPrescricao(String dataPrescrição) {
+		this.dataPrescricao = dataPrescrição;
+	}
+
+
+	public String getDataRealizacao() {
+		return dataRealizacao;
+	}
+
+
+	public void setDataRealizacao(String dataRealização) {
+		this.dataRealizacao = dataRealização;
+	}
+
+
+	public String getResultado() {
+		return resultado;
+	}
+
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
+
+
+	public String getDataValidade() {
+		return dataValidade;
+	}
+
+
+	public void setDataValidade(String dataValidade) {
+		this.dataValidade = dataValidade;
+	}
+
+
+	public int getCusto() {
+		return custo;
+	}
+
+
+	public void setCusto(int custo) {
+		this.custo = custo;
+	}
+	
+	
+
+}

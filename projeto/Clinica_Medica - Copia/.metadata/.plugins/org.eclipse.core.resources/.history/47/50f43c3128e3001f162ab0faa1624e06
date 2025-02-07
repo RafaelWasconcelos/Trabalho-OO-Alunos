@@ -1,0 +1,148 @@
+package Serviços;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entidades.Consulta;
+import entidades.HistoricoMedico;
+import entidades.Médico;
+import entidades.Paciente; 
+import entidades.Exame; 
+import entidades.Prescrição;
+
+public class Principal2 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Paciente> pacientes = new ArrayList<>();
+        List<Médico> medicos = new ArrayList<>();
+        List<Consulta> consultas = new ArrayList<>();
+        
+        while (true) {
+            System.out.println("Bem-vindo ao Sistema de Gerenciamento de Clínica Médica");
+            System.out.println("1. Cadastrar Paciente");
+            System.out.println("2. Cadastrar Médico");
+            System.out.println("3. Marcar Consulta");
+            System.out.println("4. Prescrever para Consulta");
+            System.out.println("5. Sair");
+            System.out.print("Escolha uma opção: ");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+            
+            if (escolha == 1) {
+                // Cadastrar Paciente
+                System.out.print("Nome do Paciente: ");
+                String nome = scanner.nextLine();
+                System.out.print("CPF do Paciente: ");
+                String CPF = scanner.nextLine();
+                System.out.print("Data de Nascimento do Paciente: ");
+                String dataNascimento = scanner.nextLine();
+                
+                HistoricoMedico historico = new HistoricoMedico();
+                Paciente paciente = new Paciente(nome, dataNascimento, CPF, historico);
+                pacientes.add(paciente);
+                System.out.println("Paciente cadastrado com sucesso!");
+                
+            } else if (escolha == 2) {
+                // Cadastrar Médico
+                System.out.print("Nome do Médico: ");
+                String nome = scanner.nextLine();
+                System.out.print("CPF do Médico: ");
+                String CPF = scanner.nextLine();
+                System.out.print("Data de Nascimento do Médico: ");
+                String dataNascimento = scanner.nextLine();
+                System.out.print("CRM do Médico: ");
+                String CRM = scanner.nextLine();
+                System.out.print("Especialidade do Médico: ");
+                String especialidade = scanner.nextLine();
+                
+                HistoricoMedico historico = new HistoricoMedico();
+                Médico medico = new Médico(nome, dataNascimento, CPF, CRM, especialidade, historico);
+                medicos.add(medico);
+                System.out.println("Médico cadastrado com sucesso!");
+                
+            } else if (escolha == 3) {
+                // Marcar Consulta
+                if (pacientes.isEmpty() || medicos.isEmpty()) {
+                    System.out.println("É necessário ter pelo menos um paciente e um médico cadastrados para marcar uma consulta.");
+                    continue;
+                }
+                
+                System.out.println("Selecione o Paciente: ");
+                for (int i = 0; i < pacientes.size(); i++) {
+                    System.out.println((i + 1) + ". " + pacientes.get(i).getNome());
+                }
+                int pacienteIndex = scanner.nextInt() - 1;
+                scanner.nextLine(); // Limpar o buffer
+                Paciente paciente = pacientes.get(pacienteIndex);
+                
+                System.out.println("Selecione o Médico: ");
+                for (int i = 0; i < medicos.size(); i++) {
+                    System.out.println((i + 1) + ". " + medicos.get(i).getNome());
+                }
+                int medicoIndex = scanner.nextInt() - 1;
+                scanner.nextLine(); // Limpar o buffer
+                Médico medico = medicos.get(medicoIndex);
+                
+                System.out.print("Data da Consulta: ");
+                String data = scanner.nextLine();
+                System.out.print("Horário da Consulta: ");
+                String horario = scanner.nextLine();
+                System.out.print("Duração da Consulta (em minutos): ");
+                int duracao = scanner.nextInt();
+                System.out.print("Valor da Consulta: ");
+                int valor = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer
+                
+                Consulta consulta = new Consulta(data, horario, duracao, paciente, medico, valor);
+                consultas.add(consulta);
+                System.out.println("Consulta marcada com sucesso!");
+                
+            } else if (escolha == 4) {
+                // Prescrever para Consulta
+                if (consultas.isEmpty()) {
+                    System.out.println("É necessário ter pelo menos uma consulta marcada para prescrever.");
+                    continue;
+                }
+                
+                System.out.println("Selecione a Consulta: ");
+                for (int i = 0; i < consultas.size(); i++) {
+                    System.out.println((i + 1) + ". Consulta de " + consultas.get(i).getPaciente().getNome() +
+                            " com " + consultas.get(i).getMedico().getNome() + " em " + consultas.get(i).getData());
+                }
+                int consultaIndex = scanner.nextInt() - 1;
+                scanner.nextLine(); // Limpar o buffer
+                Consulta consulta = consultas.get(consultaIndex);
+                
+                System.out.print("Tipo de Exame: ");
+                String tipo = scanner.nextLine();
+                System.out.print("Data da Prescrição: ");
+                String dataPrescricao = scanner.nextLine();
+                System.out.print("Data de Realização: ");
+                String dataRealizacao = scanner.nextLine();
+                System.out.print("Data de Validade (em dias): ");
+                String dataValidade = scanner.nextLine();
+                System.out.print("Nome do Medicamento: ");
+                String nomeMedicamento = scanner.nextLine();
+                System.out.print("Custo da Prescrição: ");
+                int custo = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer
+                
+                Prescrição prescricao = new Prescrição(tipo, dataPrescricao, dataRealizacao, dataValidade, nomeMedicamento, consulta, custo);
+                consulta.adicionarPrescricao(prescricao);
+                System.out.println("Prescrição adicionada com sucesso!");
+                
+            } else if (escolha == 5) {
+                // Sair
+                System.out.println("Saindo do sistema...");
+                break;
+                
+            } else {
+                System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+        
+        scanner.close();
+    }
+}

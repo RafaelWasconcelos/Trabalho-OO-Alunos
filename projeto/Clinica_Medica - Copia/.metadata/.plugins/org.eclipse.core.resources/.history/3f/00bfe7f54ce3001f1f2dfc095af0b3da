@@ -1,0 +1,105 @@
+package Serviços;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entidades.Agendamento;
+import entidades.Consulta;
+import entidades.HistoricoMedico;
+import entidades.Médico;
+import entidades.Paciente;
+import entidades.Exame;
+import entidades.Medicamento;
+import entidades.Prescrição;
+
+public class Principal4 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Paciente> pacientes = new ArrayList<>();
+        List<Médico> medicos = new ArrayList<>();
+        List<Agendamento> agendamentos = new ArrayList<>();
+        List<Consulta> consultas = new ArrayList<>();
+        List<Medicamento> medicamentos = new ArrayList<>();
+        List<Exame> exames = new ArrayList<>();
+        List<Prescrição> prescrições = new ArrayList<>();
+
+        while (true) {
+            System.out.println("Bem-vindo ao Sistema de Gerenciamento de Clínica Médica");
+            System.out.println("1. Funcionalidades de Paciente");
+            System.out.println("2. Funcionalidades de Médico");
+            System.out.println("3. Funcionalidades de Agendamento");
+            System.out.println("4. Funcionalidades de Consulta");
+            System.out.println("5. Funcionalidades de Prescrição");
+            System.out.println("6. Funcionalidades de Medicamento");
+            System.out.println("7. Funcionalidades de Exame");
+            System.out.println("8. Sair");
+            System.out.print("Escolha uma opção: ");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            if (escolha == 1) {
+                // Funcionalidades de Paciente
+                System.out.println("1.1. Cadastrar Paciente");
+                System.out.println("1.2. Ler Paciente");
+                System.out.println("1.3. Atualizar Paciente");
+                System.out.println("1.4. Deletar Paciente");
+                System.out.print("Escolha uma opção: ");
+                int subEscolha = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer
+
+                if (subEscolha == 1) {
+                    // Cadastrar Paciente
+                    System.out.print("Nome do Paciente: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("CPF do Paciente: ");
+                    String CPF = scanner.nextLine();
+                    System.out.print("Data de Nascimento do Paciente: ");
+                    String dataNascimento = scanner.nextLine();
+
+                    HistoricoMedico historico = new HistoricoMedico();
+                    Paciente paciente = new Paciente(nome, dataNascimento, CPF, historico);
+                    pacientes.add(paciente);
+                    System.out.println("Paciente cadastrado com sucesso!");
+                } else if (subEscolha == 2) {
+                    // Ler Paciente
+                    System.out.println("Selecione o Paciente: ");
+                    for (int i = 0; i < pacientes.size(); i++) {
+                        System.out.println((i + 1) + ". " + pacientes.get(i).getNome());
+                    }
+                    int pacienteIndex = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Limpar o buffer
+                    Paciente paciente = pacientes.get(pacienteIndex);
+                    paciente.lerCadastro();
+                } else if (subEscolha == 3) {
+                    // Atualizar Paciente
+                    System.out.println("Selecione o Paciente: ");
+                    for (int i = 0; i < pacientes.size(); i++) {
+                        System.out.println((i + 1) + ". " + pacientes.get(i).getNome());
+                    }
+                    int pacienteIndex = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Limpar o buffer
+                    Paciente paciente = pacientes.get(pacienteIndex);
+                    System.out.print("Nome do Paciente: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("CPF do Paciente: ");
+                    String CPF = scanner.nextLine();
+                    System.out.print("Data de Nascimento do Paciente: ");
+                    String dataNascimento = scanner.nextLine();
+                    paciente.atualizarCadastro(nome, dataNascimento, CPF);
+                    System.out.println("Paciente atualizado com sucesso!");
+                } else if (subEscolha == 4) {
+                    // Deletar Paciente
+                    System.out.println("Selecione o Paciente: ");
+                    for (int i = 0; i < pacientes.size(); i++) {
+                        System.out.println((i + 1) + ". " + pacientes.get(i).getNome());
+                    }
+                    int pacienteIndex = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Limpar o buffer
+                    Paciente paciente = pacientes.get(pacienteIndex);
+                    paciente.deletarCadastro();
+                    pacientes.remove(pacienteIndex);
+                    System.out.println("Paciente deletado com sucesso!");
+                }
+            } 

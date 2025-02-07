@@ -1,0 +1,92 @@
+//package entidades;
+//
+//public class Paciente extends Usuário{
+//	public Paciente(String nome,String dataNascimento,String cpf, HistoricoMedico historico){ //C
+//		this.nome = nome;
+//		this.dataNascimento = dataNascimento; 
+//		this.cpf = cpf;
+//		this.historico = historico; 
+//	}
+//	public void deletarCadastro() { // D
+//        setNome(null);
+//        setCpf(null);
+//        setDataNascimento(null);
+//        for (int i = 0; i < historico.getConsultas().length; i++) {
+//            if (historico.getConsultas()[i] != null) {
+//                historico.getConsultas()[i].deletarConsulta();
+//            }
+//        }
+//        for (int i = 0; i < historico.getExames().length; i++) {
+//            if (historico.getExames()[i] != null) {
+//                historico.getExames()[i].deletarExame();
+//            }
+//        }
+//	}
+//	@Override
+//	public void lerCadastro() {           //R
+//		System.out.println("\n Nome:"+ nome + "\n DataNascimento:" + dataNascimento +"\n CPF:" + cpf +"\n");
+//	}
+//	
+//	@Override
+//	public void atualizarCadastro() {
+//		this.nome = nome;
+//		this.dataNascimento = dataNascimento; 
+//		this.cpf = cpf;
+//		this.historico = historico; 
+//	}
+//
+//}
+
+package entidades;
+
+public class Paciente extends Usuario {
+    public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historico) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.historico = historico;
+    }
+
+    @Override
+    public void deletarCadastro() {
+        setNome(null);
+        setCpf(null);
+        setDataNascimento(null);
+        for (int i = 0; i < historico.getConsultas().length; i++) {
+            if (historico.getConsultas()[i] != null) {
+                historico.getConsultas()[i].deletarConsulta();
+            }
+        }
+        for (int i = 0; i < historico.getExames().length; i++) {
+            if (historico.getExames()[i] != null) {
+                historico.getExames()[i].deletarExame();
+            }
+        }
+    }
+
+    @Override
+    public void lerCadastro() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Data de Nascimento: " + dataNascimento);
+        System.out.println("CPF: " + cpf);
+        System.out.println("Consultas no Histórico:");
+        for (Consulta consulta : historico.getConsultas()) {
+            if (consulta != null) {
+                System.out.println("  Data: " + consulta.getAgendamento().getData() + ", Horário: " + consulta.getAgendamento().getHorário() + ", Duração: " + consulta.getAgendamento().getDuração() + " min, Médico: " + consulta.getAgendamento().getMedicoResponsável().getNome() + ", Valor: " + consulta.getValor() + ", Status: " + consulta.getStatus());
+            }
+        }
+        System.out.println("Exames no Histórico:");
+        for (Exame exame : historico.getExames()) {
+            if (exame != null) {
+                System.out.println("  Tipo: " + exame.getTipo() + ", Data da Prescrição: " + exame.getDataPrescrição() + ", Data de Realização: " + exame.getDataRealização() + ", Resultado: " + exame.getResultado() + ", Custo: " + exame.getCusto());
+            }
+        }
+    }
+
+   
+    public void atualizarCadastro(String nome, String dataNascimento, String cpf) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+    }
+}

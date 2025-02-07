@@ -1,0 +1,151 @@
+package Serviços;
+import java.util.Scanner;
+
+import entidades.Consulta;
+import entidades.HistoricoMedico;
+import entidades.Médico;
+import entidades.Paciente; 
+import entidades.Exame; 
+import entidades.Prescrição;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		//////////////////////////////////////////////////////////Cadastro e agendamento de consulta////////////////////////////////////////////////////
+		Scanner scanner = new Scanner(System.in);
+				
+		Paciente rafael;
+		HistoricoMedico historico; 
+		historico = new HistoricoMedico();
+		String nome,CPF,dataNascimento; 
+		
+		nome = "didico";
+		CPF ="70638313139";
+		dataNascimento="04/05/2005"; 
+		rafael = new Paciente (nome,dataNascimento,CPF,historico); 
+		
+		///////////////////////////////////////////////////
+		Médico alberto; 
+		nome = "Alberto";
+		CPF ="70638313132";
+		dataNascimento="04/05/1990";
+		String CRM = "403032";
+		String especialidade = "cardiologista";
+		HistoricoMedico historico2; 
+		historico2 = new HistoricoMedico(); 
+		alberto = new Médico(nome,dataNascimento,CPF,CRM,especialidade,historico2);
+		
+		///////////////////////////////////////////////////////////////
+		
+		Consulta consultinha = null; 
+		String data = "04/02/2025";
+		String Horário = "12:30";
+		int duração = 30; 
+		int valor = 1550; 
+		
+		for (int i=0;i<2;i++){
+			consultinha = new Consulta(data,Horário,duração,rafael,alberto,valor);
+//			System.out.println(rafael.getHistorico().getConsulta().getData()); 
+			rafael.getHistorico().getConsultas()[i]=rafael.getHistorico().getConsulta(); 
+//			System.out.println("indice "+ i +" " + rafael.getHistorico().getConsultas()[i].getData());
+		}
+		
+		//////////////////////////////////////////////////fim///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/////////////////////////////////////////////////////Prescrição de exame e Medicamento pelo Médico///////////////////////////////////////////////////////////
+		
+		Prescrição prescrição; 
+		Exame examePrescrito;
+		
+		examePrescrito = new Exame(); 
+		
+		String tipo = "sangue";
+		String dataPrescricao = "05/02/2025";
+		String dataRealizacao="05/03/2025";
+		String dataValidade="30";
+		String nomeMedicamento ="dipirona"; 
+		int custo = 500; 
+		
+		for(int i=0;i<2;i++) {
+			prescrição = new Prescrição(tipo,dataPrescricao,dataRealizacao,dataValidade,nomeMedicamento,consultinha,custo); 
+			System.out.println(prescrição.getExame().getTipo());
+			prescrição.getExamesPrescritos()[i]=prescrição.getExame();
+			System.out.println(prescrição.getExamesPrescritos()[i].getTipo()); 
+		}
+			
+		
+		
+		
+			
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+	
+		
+//		public Prescrição(String tipo,String dataPrescrição, String dataRealização,String dataValidade,String nomeMedicamento, Consulta consultaAssociada, int custo) {
+		
+		
+		
+		
+//		for (int i=0;i<2;i++)
+//		{
+//			consultinha = new Consulta(data,Horário,duração,rafael,alberto,valor);
+//			System.out.println(alberto.getHistorico().getConsulta().getData()); 
+//			alberto.getHistorico().getConsultas()[i]=alberto.getHistorico().getConsulta(); 
+//			System.out.println("indice "+ i + rafael.getHistorico().getConsultas()[i].getData());
+//		}
+//		
+//		Exame examezin; 
+//		
+//		for (int i=0;i<2;i++)
+//		{
+//			examezin = new Exame();
+//			System.out.println(rafael.getHistorico().getExame().getCusto()); 
+//			rafael.getHistorico().getExames()[i]=rafael.getHistorico().getExame(); 
+//			System.out.println("indice "+ i + rafael.getHistorico().getExames()[i].getCusto());
+//		}
+			
+		
+		
+//		public Exame(String tipo, String dataPrescrição, String dataRealização, String resultado, String dataValidade, int custo) {
+//			this.tipo = tipo;
+//			this.dataPrescrição = dataPrescrição;
+//			this.dataRealização = dataRealização;
+//			this.resultado = resultado;
+//			this.dataValidade = dataValidade;
+//			this.custo = custo;
+//		}
+		
+		
+//		public Médico(String nome,String dataNascimento,String cpf,String CRM, String Especialidade) //CU
+//		{
+//			this.nome = nome;
+//			this.dataNascimento = dataNascimento; 
+//			this.cpf=cpf;
+//			this.CRM=CRM;
+//			this.Especialidade=Especialidade; 
+//		}
+//		
+		
+		
+		
+//		System.out.println("||||||CADASTRO DE PACIENTE|||||| \n");
+//		System.out.println("Digite o nome do paciente \n");
+//		nome = scanner.nextLine(); 
+//		System.out.println("Digite o cpf do paciente \n");
+//		CPF = scanner.nextLine(); 
+//		System.out.println("Digite a data de nascimento do paciente \n");
+//		dataNascimento = scanner.nextLine(); 
+//		rafael = new Paciente(nome,dataNascimento,CPF);
+//		
+//		System.out.println("||||||CADASTRO DE CONSULTA|||||| \n");
+		
+		
+		
+//		public Consulta(String data, String horário, int duração, Paciente paciente,
+//				Médico medicoResponsável, int valor) { 
+		
+
+}
+}
