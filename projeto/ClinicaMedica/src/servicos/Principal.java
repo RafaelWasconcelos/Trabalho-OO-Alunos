@@ -12,6 +12,7 @@ import entidades.Paciente;
 import entidades.Exame;
 import entidades.Medicamento;
 import entidades.Prescricao;
+import entidades.Pagamento;
 
 public class Principal {
 
