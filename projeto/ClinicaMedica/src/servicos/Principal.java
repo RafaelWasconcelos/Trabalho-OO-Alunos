@@ -13,6 +13,9 @@ import entidades.Exame;
 import entidades.Medicamento;
 import entidades.Prescricao;
 import entidades.Pagamento;
+import excecoes.HorarioIndisponivelExpetion;
+import excecoes.PagamentoPendenteException;
+import excecoes.EspecialidadeInvalidaException;
 
 public class Principal {
 
@@ -195,6 +198,9 @@ public class Principal {
 
                     System.out.print("Data da Consulta (DD/MM/AAAA): ");
                     String data = scanner.nextLine(); 
+                    if (!medico.consultaDisponivelNoHorario(consulta.getData(), consulta.getHoraInicio())) {
+                        throw new HorarioIndisponivelException("O médico já tem consulta agendada para esse horário.");
+                    }
                     System.out.print("Horário da Consulta (HH:MM): ");
                     String horário = scanner.nextLine();
                     System.out.print("Duração da Consulta (minutos): ");

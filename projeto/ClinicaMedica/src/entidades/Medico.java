@@ -62,9 +62,13 @@
 
 package entidades;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class Medico extends Usuario {
     String CRM;
     String Especialidade;
+    private List<Agendamento> consultasAgendadas;
 
     public Medico(String nome, String dataNascimento, String cpf, String CRM, String Especialidade, HistoricoMedico historico) {
         this.nome = nome;
@@ -87,6 +91,20 @@ public class Medico extends Usuario {
                 historico.getConsultas()[i] = null;
             }
         }
+    }
+
+    public boolean temEspecialidade(String especialidade) {
+        return this.Especialidade.equalsIgnoreCase(especialidade);
+    }
+
+    public boolean consultaDisponivelNoHorario(LocalDateTime dataConsulta, String horaInicio) {
+        for (Agendamento agendamento : consultasAgendadas) {
+            if (agendamento.getData().equals(dataConsulta) && agendamento.getHorário().equals(horaInicio)) {
+                return false;  // Horário já ocupado
+            }
+        }
+        return true;  // Horário disponível
+
     }
 
     @Override

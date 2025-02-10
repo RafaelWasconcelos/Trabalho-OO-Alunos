@@ -39,12 +39,18 @@
 
 package entidades;
 
+import java.util.List;
+
 public class Paciente extends Usuario {
+    private List<Consulta> HistoricoMedico;
+    private List<Pagamento> pagamentos;
+
     public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historico) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.historico = historico;
+
     }
 
     @Override
@@ -82,6 +88,16 @@ public class Paciente extends Usuario {
             }
         }
     }
+
+    public boolean temPagamentoPendente() {
+        for (Pagamento pagamento : pagamentos) {
+            if (!pagamento.isPago()) {
+                return true;  // Existe pagamento pendente
+            }
+        }
+        return false;  // Nenhum pagamento pendente
+    }
+
 
    
     public void atualizarCadastro(String nome, String dataNascimento, String cpf) {
