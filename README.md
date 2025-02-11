@@ -8,8 +8,11 @@ Prof. André Luiz Peron Martins Lanna
 :octocat: **Integrantes do Projeto**  
 
 Ana Luiza Borba de Abrantes - 200014226
+
 Giulia Pauluccida Hora Viana - 231034690  
+
 Pedro Henrique Jade Viana - 211041034
+
 Rafael Silva Vasconcelos - 232030364
 
 ## Descrição
