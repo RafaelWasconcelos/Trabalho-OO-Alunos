@@ -1,8 +1,11 @@
 # Sistema de Gerenciamento de Clínica Médica
 
 UnB - Universidade de Brasilia
+
 FGA - Faculdade do Gama
+
 OO - Orientação por Objetos
+
 Prof. André Luiz Peron Martins Lanna
 
 :octocat: **Integrantes do Projeto**  
