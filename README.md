@@ -1,5 +1,17 @@
 # Sistema de Gerenciamento de Clínica Médica
 
+UnB - Universidade de Brasilia
+FGA - Faculdade do Gama
+OO - Orientação por Objetos
+Prof. André Luiz Peron Martins Lanna
+
+:octocat: **Integrantes do Projeto**  
+
+Ana Luiza Borba de Abrantes - 200014226
+Giulia Pauluccida Hora Viana - 231034690  
+Pedro Henrique Jade Viana - 211041034
+Rafael Silva Vasconcelos - 232030364
+
 ## Descrição
 
 Este projeto consiste em um Sistema de Gerenciamento para uma Clínica Médica desenvolvido em Java. O sistema tem como objetivo automatizar a gestão de pacientes, médicos, consultas, exames e pagamentos, facilitando o controle e a organização das atividades da clínica.
