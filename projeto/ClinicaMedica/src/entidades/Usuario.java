@@ -1,49 +1,58 @@
 package entidades;
 
 public abstract class Usuario {
-	String nome,
-			dataNascimento,cpf;
-	HistoricoMedico historico; 
-	
-	public abstract void deletarCadastro();  // D
-	public abstract void lerCadastro(); // R
-	public void atualizarCadastro(String nome, String dataNascimento, String cpf) {
-		// TODO Auto-generated method stub
-		
-	}
+    private String nome;
+    private String dataNascimento;
+    private String cpf;
+    public HistoricoMedico historico;
 
-	public String getNome() {
-		return nome;
-	}
+    // Construtor para inicializar os atributos
+    public Usuario(String nome, String dataNascimento, String cpf, HistoricoMedico historico) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.historico = historico;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public abstract void deletarCadastro();  // D
+    public abstract void lerCadastro();  // R
 
-	public String getDataNascimento() {
-		return dataNascimento;
-	}
+    public void atualizarCadastro(String nome, String dataNascimento, String cpf) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+    }
 
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    // Métodos de acesso (getters e setters)
+    public String getNome() {
+        return nome;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public HistoricoMedico getHistorico() {
-		return historico;
-	}
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public void setHistorico(HistoricoMedico historico) {
-		this.historico = historico;
-	}
-	
+    public String getCpf() {
+        return cpf;
+    }
 
-	
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public HistoricoMedico getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(HistoricoMedico historico) {
+        this.historico = historico;
+    }
 }

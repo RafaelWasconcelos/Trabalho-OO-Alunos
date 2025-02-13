@@ -1,108 +1,112 @@
 package entidades;
 
 public class Exame {
-	String tipo, 
-			dataPrescrição, dataRealização, resultado, dataValidade; 
-	int custo; 
-	
-	
-	public Exame() // C - create and U - update
-	{
-		
-	}
-	public Exame(String tipo, String dataPrescrição, String dataRealização, String resultado, String dataValidade, int custo) { // C - create and U - update
-		this.tipo = tipo;
-		this.dataPrescrição = dataPrescrição;
-		this.dataRealização = dataRealização;
-		this.resultado = resultado;
-		this.dataValidade = dataValidade;
-		this.custo = custo;
-	}
-	
-	public void deletarExame() {
-	    if (this.tipo != null) {
-	        this.tipo = null;
-	    }
-	    if (this.dataPrescrição != null) {
-	        this.dataPrescrição = null;
-	    }
-	    if (this.dataRealização != null) {
-	        this.dataRealização = null;
-	    }
-	    if (this.resultado != null) {
-	        this.resultado = null;
-	    }
-	    if (this.dataValidade != null) {
-	        this.dataValidade = null;
-	    }
-	    this.custo = 0;
-	}
-	
-	public void lerExame() { // R - read
-        System.out.println("Tipo: " + tipo);
-        System.out.println("Data da Prescrição: " + dataPrescrição);
-        System.out.println("Data de Realização: " + dataRealização);
-        System.out.println("Resultado: " + resultado);
-        System.out.println("Data de Validade: " + dataValidade);
-        System.out.println("Custo: " + custo);
-    }
-	
-	public void atualizarExame(String tipo, String dataPrescrição, String dataRealização, String resultado, String dataValidade, int custo) { // U
+    private String tipo; 
+    private String dataPrescricao; 
+    private String dataRealizacao; 
+    private String resultado; 
+    private String dataValidade; 
+    private int custo; 
+
+    // Construtor vazio
+    public Exame() {}
+
+    // Construtor completo
+    public Exame(String tipo, String dataPrescricao, String dataRealizacao, String resultado, String dataValidade, int custo) {
         this.tipo = tipo;
-        this.dataPrescrição = dataPrescrição;
-        this.dataRealização = dataRealização;
+        this.dataPrescricao = dataPrescricao;
+        this.dataRealizacao = dataRealizacao;
         this.resultado = resultado;
         this.dataValidade = dataValidade;
         this.custo = custo;
     }
 
-	public String getTipo() {
-		return tipo;
-	}
+    // Método para deletar o exame
+    public void deletarExame() {
+        this.tipo = null;
+        this.dataPrescricao = null;
+        this.dataRealizacao = null;
+        this.resultado = null;
+        this.dataValidade = null;
+        this.custo = 0;
+    }
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+    // Ler informações do exame
+    public void lerExame() { 
+        if (tipo != null && dataPrescricao != null && dataRealizacao != null && resultado != null && dataValidade != null) {
+            System.out.println("Tipo: " + tipo);
+            System.out.println("Data da Prescrição: " + dataPrescricao);
+            System.out.println("Data de Realização: " + dataRealizacao);
+            System.out.println("Resultado: " + resultado);
+            System.out.println("Data de Validade: " + dataValidade);
+            System.out.println("Custo: " + custo);
+        } else {
+            System.out.println("Exame incompleto ou não disponível.");
+        }
+    }
 
-	public String getDataPrescrição() {
-		return dataPrescrição;
-	}
+    // Atualizar exame
+    public void atualizarExame(String tipo, String dataPrescricao, String dataRealizacao, String resultado, String dataValidade, int custo) {
+        this.tipo = tipo;
+        this.dataPrescricao = dataPrescricao;
+        this.dataRealizacao = dataRealizacao;
+        this.resultado = resultado;
+        this.dataValidade = dataValidade;
+        this.custo = custo;
+    }
 
-	public void setDataPrescrição(String dataPrescrição) {
-		this.dataPrescrição = dataPrescrição;
-	}
+    // Sobrescrevendo o método toString para exibir a informação do exame de forma simplificada
+    @Override
+    public String toString() {
+        return "Tipo: " + tipo + ", Prescrição: " + dataPrescricao + ", Realização: " + dataRealizacao + ", Resultado: " + resultado + ", Validade: " + dataValidade + ", Custo: " + custo;
+    }
 
-	public String getDataRealização() {
-		return dataRealização;
-	}
+    // Getters e Setters
+    public String getTipo() {
+        return tipo;
+    }
 
-	public void setDataRealização(String dataRealização) {
-		this.dataRealização = dataRealização;
-	}
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-	public String getResultado() {
-		return resultado;
-	}
+    public String getDataPrescricao() {
+        return dataPrescricao;
+    }
 
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
-	}
+    public void setDataPrescricao(String dataPrescricao) {
+        this.dataPrescricao = dataPrescricao;
+    }
 
-	public String getDataValidade() {
-		return dataValidade;
-	}
+    public String getDataRealizacao() {
+        return dataRealizacao;
+    }
 
-	public void setDataValidade(String dataValidade) {
-		this.dataValidade = dataValidade;
-	}
+    public void setDataRealizacao(String dataRealizacao) {
+        this.dataRealizacao = dataRealizacao;
+    }
 
-	public int getCusto() {
-		return custo;
-	}
+    public String getResultado() {
+        return resultado;
+    }
 
-	public void setCusto(int custo) {
-		this.custo = custo;
-	}
-	
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
 
+    public String getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(String dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public int getCusto() {
+        return custo;
+    }
+
+    public void setCusto(int custo) {
+        this.custo = custo;
+    }
 }

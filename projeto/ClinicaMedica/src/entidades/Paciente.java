@@ -1,56 +1,16 @@
-//package entidades;
-//
-//public class Paciente extends Usuário{
-//	public Paciente(String nome,String dataNascimento,String cpf, HistoricoMedico historico){ //C
-//		this.nome = nome;
-//		this.dataNascimento = dataNascimento; 
-//		this.cpf = cpf;
-//		this.historico = historico; 
-//	}
-//	public void deletarCadastro() { // D
-//        setNome(null);
-//        setCpf(null);
-//        setDataNascimento(null);
-//        for (int i = 0; i < historico.getConsultas().length; i++) {
-//            if (historico.getConsultas()[i] != null) {
-//                historico.getConsultas()[i].deletarConsulta();
-//            }
-//        }
-//        for (int i = 0; i < historico.getExames().length; i++) {
-//            if (historico.getExames()[i] != null) {
-//                historico.getExames()[i].deletarExame();
-//            }
-//        }
-//	}
-//	@Override
-//	public void lerCadastro() {           //R
-//		System.out.println("\n Nome:"+ nome + "\n DataNascimento:" + dataNascimento +"\n CPF:" + cpf +"\n");
-//	}
-//	
-//	@Override
-//	public void atualizarCadastro() {
-//		this.nome = nome;
-//		this.dataNascimento = dataNascimento; 
-//		this.cpf = cpf;
-//		this.historico = historico; 
-//	}
-//
-//}
-
 package entidades;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Paciente extends Usuario {
-    private List<Consulta> HistoricoMedico;
+    private HistoricoMedico historicoMedico;
     private List<Pagamento> pagamentos;
 
-    public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historico) {
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
-        this.historico = historico;
-
+    public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historicoMedico) {
+        super(nome, dataNascimento, cpf, historicoMedico);
+        this.historicoMedico = historicoMedico;
+        this.pagamentos = new ArrayList<>(); // Inicializando a lista de pagamentos
     }
 
     @Override
@@ -58,33 +18,51 @@ public class Paciente extends Usuario {
         setNome(null);
         setCpf(null);
         setDataNascimento(null);
-        for (int i = 0; i < historico.getConsultas().length; i++) {
-            if (historico.getConsultas()[i] != null) {
-                historico.getConsultas()[i].deletarConsulta();
+        
+        // Deletar consultas do histórico
+        if (historicoMedico != null) {
+            for (Consulta consulta : historicoMedico.getConsultas()) {
+                if (consulta != null) {
+                    consulta.deletarConsulta();
+                }
             }
-        }
-        for (int i = 0; i < historico.getExames().length; i++) {
-            if (historico.getExames()[i] != null) {
-                historico.getExames()[i].deletarExame();
+            
+            // Deletar exames
+            for (Exame exame : historicoMedico.getExames()) {
+                if (exame != null) {
+                    exame.deletarExame();
+                }
             }
         }
     }
 
     @Override
     public void lerCadastro() {
-        System.out.println("Nome: " + nome);
-        System.out.println("Data de Nascimento: " + dataNascimento);
-        System.out.println("CPF: " + cpf);
+        System.out.println("Nome: " + getNome());
+        System.out.println("Data de Nascimento: " + getDataNascimento());
+        System.out.println("CPF: " + getCpf());
+        
         System.out.println("Consultas no Histórico:");
-        for (Consulta consulta : historico.getConsultas()) {
-            if (consulta != null) {
-                System.out.println("  Data: " + consulta.getAgendamento().getData() + ", Horário: " + consulta.getAgendamento().getHorário() + ", Duração: " + consulta.getAgendamento().getDuração() + " min, Médico: " + consulta.getAgendamento().getMedicoResponsável().getNome() + ", Valor: " + consulta.getValor() + ", Status: " + consulta.getStatus());
+        if (historicoMedico != null) {
+            for (Consulta consulta : historicoMedico.getConsultas()) {
+                if (consulta != null) {
+                    System.out.println("  Data: " + consulta.getAgendamento().getData() +
+                            ", Horário: " + consulta.getAgendamento().getHorario() +
+                            ", Duração: " + consulta.getAgendamento().getDuracao() + " min" +
+                            ", Médico: " + consulta.getAgendamento().getMedicoResponsavel().getNome() +
+                            ", Valor: " + consulta.getValor() + ", Status: " + consulta.getStatus());
+                }
             }
-        }
-        System.out.println("Exames no Histórico:");
-        for (Exame exame : historico.getExames()) {
-            if (exame != null) {
-                System.out.println("  Tipo: " + exame.getTipo() + ", Data da Prescrição: " + exame.getDataPrescrição() + ", Data de Realização: " + exame.getDataRealização() + ", Resultado: " + exame.getResultado() + ", Custo: " + exame.getCusto());
+
+            System.out.println("Exames no Histórico:");
+            for (Exame exame : historicoMedico.getExames()) {
+                if (exame != null) {
+                    System.out.println("  Tipo: " + exame.getTipo() +
+                            ", Data da Prescrição: " + exame.getDataPrescricao() +
+                            ", Data de Realização: " + exame.getDataRealizacao() +
+                            ", Resultado: " + exame.getResultado() +
+                            ", Custo: " + exame.getCusto());
+                }
             }
         }
     }
@@ -98,11 +76,9 @@ public class Paciente extends Usuario {
         return false;  // Nenhum pagamento pendente
     }
 
-
-   
     public void atualizarCadastro(String nome, String dataNascimento, String cpf) {
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
+        setNome(nome);
+        setDataNascimento(dataNascimento);
+        setCpf(cpf);
     }
 }
