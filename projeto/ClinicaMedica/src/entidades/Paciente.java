@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Paciente extends Usuario {
     private HistoricoMedico historicoMedico;
     private List<Pagamento> pagamentos;
+    private List<Consulta> consultasAgendadas;
 
     public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historicoMedico) {
         super(nome, dataNascimento, cpf, historicoMedico);
@@ -80,5 +81,9 @@ public class Paciente extends Usuario {
         setNome(nome);
         setDataNascimento(dataNascimento);
         setCpf(cpf);
+    }
+
+    public List<Consulta> getConsultas(){
+        return consultasAgendadas;
     }
 }

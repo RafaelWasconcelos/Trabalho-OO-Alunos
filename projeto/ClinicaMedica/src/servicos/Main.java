@@ -239,16 +239,16 @@ public class Main {
         System.out.print("Digite o CPF do paciente: ");
         String cpf = scanner.nextLine().trim();
     
-        Consulta consultaEncontrada = buscarConsultaPorCpf(cpf);
+        Paciente pacienteEncontrado = encontrarPacientePorCpf(cpf);
     
         // Verifica se a consulta foi encontrada
-        if (consultaEncontrada == null) {
+        if (pacienteEncontrado == null) {
             System.out.println("Erro: Nenhuma consulta encontrada para o CPF informado.");
             return; // Sai da função para evitar exceções
         }
     
         // Verifica se a consulta já possui um pagamento registrado
-        if (consultaEncontrada.getPagamento() != null && consultaEncontrada.getPagamento().isPago()) {
+        if (!pacienteEncontrado.temPagamentoPendente()) {
             System.out.println("Esta consulta já foi paga anteriormente.");
             return;
         }
@@ -262,7 +262,7 @@ public class Main {
     
         // Criar novo pagamento e associar à consulta
         Pagamento pagamento = new Pagamento(valor, metodo);
-        consultaEncontrada.setPagamento(pagamento);
+        pacienteEncontrado.getPagamentos().add(pagamento);
         pagamento.realizarPagamento();
     
         System.out.println("Pagamento registrado com sucesso!");
