@@ -54,54 +54,7 @@ public class Main {
                 case 6:
                     historicoMedico();  
                 case 7:
-                    System.out.println("Prescrição de Medicamentos:");
-                
-                    // Buscar paciente pelo CPF
-                    System.out.print("Digite o CPF do paciente: ");
-                    String cpfPacienteMed = scanner.nextLine();
-                    Paciente pacienteMed = encontrarPacientePorCpf(cpfPacienteMed);
-                    if (pacienteMed == null) {
-                        System.out.println("Paciente não encontrado!");
-                        break;
-                    }
-                
-                    // Buscar consulta ativa do paciente
-                    Consulta consultaMed = null;
-                    for (Consulta c : pacienteMed.getConsultas()) {
-                        if (c.getAgendamento().getPaciente().equals(pacienteMed)) {
-                            consultaMed = c;
-                            break;
-                        }
-                    }
-                
-                    if (consultaMed == null) {
-                        System.out.println("Nenhuma consulta encontrada para este paciente.");
-                        break;
-                    }
-                
-                    // Capturar medicamentos prescritos
-                    List<Medicamento> medicamentosPrescritos = new ArrayList<>();
-                
-                    while (true) {
-                        System.out.print("Digite o nome do medicamento (ou 'fim' para parar): ");
-                        String nomeMedicamento = scanner.nextLine().trim();
-                
-                        if (nomeMedicamento.equalsIgnoreCase("fim")) break;
-                
-                        Medicamento medicamento = new Medicamento(nomeMedicamento);
-                        medicamentosPrescritos.add(medicamento);
-                
-                        System.out.println("Medicamento adicionado com sucesso!\n");
-                    }
-                
-                    // Criar ou atualizar a prescrição da consulta
-                    if (consultaMed.getPrescricao() == null) {
-                        consultaMed.setPrescricao(new Prescricao());
-                    }
-                
-                    consultaMed.getPrescricao().setMedicamentoPrescritos(medicamentosPrescritos);
-                
-                    System.out.println("Medicamentos prescritos com sucesso!");
+                    cadastrarMedicamento();
                     break;
                               
                 case 0:
@@ -403,6 +356,55 @@ public class Main {
         }
     }
     
+    public static void cadastrarMedicamento() {
+
+        System.out.println("Prescrição de Medicamentos:");
+                
+        // Buscar paciente pelo CPF
+        System.out.print("Digite o CPF do paciente: ");
+        String cpfPacienteMed = scanner.nextLine();
+        Paciente pacienteMed = encontrarPacientePorCpf(cpfPacienteMed);
+        if (pacienteMed == null) {
+            System.out.println("Paciente não encontrado!");
+        }
+    
+        // Buscar consulta ativa do paciente
+        Consulta consultaMed = null;
+        for (Consulta c : pacienteMed.getConsultas()) {
+            if (c.getAgendamento().getPaciente().equals(pacienteMed)) {
+                consultaMed = c;
+                break;
+            }
+        }
+    
+        if (consultaMed == null) {
+            System.out.println("Nenhuma consulta encontrada para este paciente.");
+        }
+    
+        List<Medicamento> medicamentosPrescritos = new ArrayList<>();
+    
+        while (true) {
+            System.out.print("Digite o nome do medicamento (ou 'fim' para parar): ");
+            String nomeMedicamento = scanner.nextLine().trim();
+    
+            if (nomeMedicamento.equalsIgnoreCase("fim")) break;
+    
+            Medicamento medicamento = new Medicamento(nomeMedicamento);
+            medicamentosPrescritos.add(medicamento);
+    
+            System.out.println("Medicamento adicionado com sucesso!\n");
+        }
+    
+        // Criar ou atualizar a prescrição da consulta
+        if (consultaMed.getPrescricao() == null) {
+            consultaMed.setPrescricao(new Prescricao());
+        }
+    
+        consultaMed.getPrescricao().setMedicamentoPrescritos(medicamentosPrescritos);
+    
+        System.out.println("Medicamentos prescritos com sucesso!");
+        
+    }
     
 
     private static boolean horarioDisponivel(Medico medico, LocalDate data, LocalTime horario) {
