@@ -28,6 +28,7 @@ public class Main {
             System.out.println("4 - Prescrição de Exames");
             System.out.println("5 - Registrar Pagamento");
             System.out.println("6 - Ver Histórico de Consultas de um Paciente");
+            System.out.println("7 - Adicionar Medicamento");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
             
@@ -51,7 +52,58 @@ public class Main {
                     registrarPagamento();
                     break;
                 case 6:
-                    historicoMedico();                
+                    historicoMedico();  
+                case 7:
+                    System.out.println("Prescrição de Medicamentos:");
+                
+                    // Buscar paciente pelo CPF
+                    System.out.print("Digite o CPF do paciente: ");
+                    String cpfPacienteMed = scanner.nextLine();
+                    Paciente pacienteMed = encontrarPacientePorCpf(cpfPacienteMed);
+                    if (pacienteMed == null) {
+                        System.out.println("Paciente não encontrado!");
+                        break;
+                    }
+                
+                    // Buscar consulta ativa do paciente
+                    Consulta consultaMed = null;
+                    for (Consulta c : pacienteMed.getConsultas()) {
+                        if (c.getAgendamento().getPaciente().equals(pacienteMed)) {
+                            consultaMed = c;
+                            break;
+                        }
+                    }
+                
+                    if (consultaMed == null) {
+                        System.out.println("Nenhuma consulta encontrada para este paciente.");
+                        break;
+                    }
+                
+                    // Capturar medicamentos prescritos
+                    List<Medicamento> medicamentosPrescritos = new ArrayList<>();
+                
+                    while (true) {
+                        System.out.print("Digite o nome do medicamento (ou 'fim' para parar): ");
+                        String nomeMedicamento = scanner.nextLine().trim();
+                
+                        if (nomeMedicamento.equalsIgnoreCase("fim")) break;
+                
+                        Medicamento medicamento = new Medicamento(nomeMedicamento);
+                        medicamentosPrescritos.add(medicamento);
+                
+                        System.out.println("Medicamento adicionado com sucesso!\n");
+                    }
+                
+                    // Criar ou atualizar a prescrição da consulta
+                    if (consultaMed.getPrescricao() == null) {
+                        consultaMed.setPrescricao(new Prescricao());
+                    }
+                
+                    consultaMed.getPrescricao().setMedicamentoPrescritos(medicamentosPrescritos);
+                
+                    System.out.println("Medicamentos prescritos com sucesso!");
+                    break;
+                              
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -115,7 +167,7 @@ public class Main {
             return;
         }
     
-        System.out.print("Digite a data da consulta (yyyy-MM-dd): ");
+        System.out.print("Digite a data da consulta (dd/MM/yyyy): ");
         String dataConsultaStr = scanner.nextLine();
         System.out.print("Digite o horário da consulta (HH:mm): ");
         String horarioConsulta = scanner.nextLine();
@@ -123,7 +175,7 @@ public class Main {
         int duracao = scanner.nextInt();
         scanner.nextLine();
     
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalDate dataConsulta = LocalDate.parse(dataConsultaStr, dateFormatter);
         LocalTime horario = LocalTime.parse(horarioConsulta, timeFormatter);
@@ -167,7 +219,7 @@ public class Main {
         // Buscar consulta ativa do paciente
         Consulta consultaEncontrada = null;
         for (Consulta consulta : consultas) {
-            if (consulta.getAgendamento().getPaciente().equals(paciente)) {
+            if (consulta.getAgendamento().getPaciente().getCpf().equals(paciente.getCpf())) {
                 consultaEncontrada = consulta;
                 break;
             }
@@ -292,21 +344,22 @@ public class Main {
                 .orElse(null);
     }
 
-    private static void historicoMedico(){
+    private static void historicoMedico() {
         System.out.println("Digite o CPF do paciente:");
         String cpfConsulta = scanner.nextLine();
         Paciente pacienteConsulta = encontrarPacientePorCpf(cpfConsulta);
     
         if (pacienteConsulta == null) {
             System.out.println("Paciente não encontrado.");
+            return;
         }
     
         System.out.println("Nome: " + pacienteConsulta.getNome());
         System.out.println("Data de Nascimento: " + pacienteConsulta.getDataNascimento());
         System.out.println("CPF: " + pacienteConsulta.getCpf());
-        
+    
         List<Consulta> consultasPaciente = pacienteConsulta.getConsultas();
-        
+    
         if (consultasPaciente.isEmpty()) {
             System.out.println("Nenhuma consulta encontrada.");
         } else {
@@ -318,10 +371,39 @@ public class Main {
                 System.out.println("👨‍⚕️ Médico: " + consulta.getAgendamento().getMedicoResponsavel().getNome());
                 System.out.println("📝 Status: " + consulta.getStatus());
                 System.out.println("💰 Valor: R$ " + consulta.getValor());
+    
+                // Exibir Medicamentos Prescritos
+                if (consulta.getPrescricao() != null && !consulta.getPrescricao().getMedicamentoPrescritos().isEmpty()) {
+                    System.out.println("💊 Medicamentos Prescritos:");
+                    for (Medicamento medicamento : consulta.getPrescricao().getMedicamentoPrescritos()) {
+                        System.out.println("  - " + medicamento.getNomeMedicamento());
+                    }
+                } else {
+                    System.out.println("💊 Nenhum medicamento prescrito.");
+                }
+    
+                // Exibir Exames Prescritos
+                if (consulta.getPrescricao() != null && !consulta.getPrescricao().getExamesPrescritos().isEmpty()) {
+                    System.out.println("🧪 Exames Prescritos:");
+                    for (Exame exame : consulta.getPrescricao().getExamesPrescritos()) {
+                        System.out.println("  📌 Tipo: " + exame.getTipo());
+                        System.out.println("  📆 Data de Prescrição: " + exame.getDataPrescricao());
+                        System.out.println("  📅 Data de Realização: " + (exame.getDataRealizacao().isEmpty() ? "Não realizada" : exame.getDataRealizacao()));
+                        System.out.println("  📝 Resultado: " + (exame.getResultado().isEmpty() ? "Não disponível" : exame.getResultado()));
+                        System.out.println("  ⏳ Validade: " + (exame.getDataValidade().isEmpty() ? "Sem validade definida" : exame.getDataValidade()));
+                        System.out.println("  💰 Custo: R$ " + exame.getCusto());
+                        System.out.println("  ---------------------------");
+                    }
+                } else {
+                    System.out.println("🧪 Nenhum exame prescrito.");
+                }
+    
                 System.out.println("---------------------------");
             }
-            }
+        }
     }
+    
+    
 
     private static boolean horarioDisponivel(Medico medico, LocalDate data, LocalTime horario) {
         for (Consulta consulta : consultas) {
