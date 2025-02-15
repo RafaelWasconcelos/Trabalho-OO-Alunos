@@ -127,6 +127,11 @@ public class Main {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalDate dataConsulta = LocalDate.parse(dataConsultaStr, dateFormatter);
         LocalTime horario = LocalTime.parse(horarioConsulta, timeFormatter);
+
+        if (!horarioDisponivel(medico, dataConsulta, horario)) {
+            System.out.println("⚠️ O horário solicitado para a consulta já está ocupado.");
+            return;
+        }
         
         Agendamento agendamento = new Agendamento(dataConsulta, horario, duracao, paciente, medico);
         
@@ -317,5 +322,21 @@ public class Main {
             }
             }
     }
+
+    private static boolean horarioDisponivel(Medico medico, LocalDate data, LocalTime horario) {
+        for (Consulta consulta : consultas) {
+            Agendamento agendamento = consulta.getAgendamento();
+            
+            // Verifica se o médico já tem uma consulta nesse horário e data
+            if (agendamento.getMedicoResponsavel().equals(medico) &&
+                agendamento.getData().equals(data) &&
+                agendamento.getHorario().equals(horario)) {
+                return false; // Horário já está ocupado
+            }
+        }
+        return true; // Horário está livre
+    }
+    
     
 }
+
