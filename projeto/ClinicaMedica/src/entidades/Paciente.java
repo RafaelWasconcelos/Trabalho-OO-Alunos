@@ -7,11 +7,13 @@ public class Paciente extends Usuario {
     private HistoricoMedico historicoMedico;
     private List<Pagamento> pagamentos;
     private List<Consulta> consultasAgendadas;
+    
 
     public Paciente(String nome, String dataNascimento, String cpf, HistoricoMedico historicoMedico) {
         super(nome, dataNascimento, cpf, historicoMedico);
         this.historicoMedico = historicoMedico;
-        this.pagamentos = new ArrayList<>(); // Inicializando a lista de pagamentos
+        this.consultasAgendadas = new ArrayList<>();
+        this.pagamentos = new ArrayList<>(); 
     }
 
     @Override
@@ -37,7 +39,23 @@ public class Paciente extends Usuario {
         }
     }
 
-    @Override
+    public void adicionarConsulta(Consulta consulta) {
+    if (consulta != null) {
+        if (this.historicoMedico == null) {
+            this.historicoMedico = new HistoricoMedico();
+        }
+        this.historicoMedico.adicionarConsulta(consulta); // Adiciona ao histórico médico
+        this.consultasAgendadas.add(consulta); // Adiciona à lista local de consultas agendadas
+    }
+}
+
+
+
+    public HistoricoMedico getHistoricoMedico() {
+        return historicoMedico;
+    }
+
+    
     public void lerCadastro() {
         System.out.println("Nome: " + getNome());
         System.out.println("Data de Nascimento: " + getDataNascimento());

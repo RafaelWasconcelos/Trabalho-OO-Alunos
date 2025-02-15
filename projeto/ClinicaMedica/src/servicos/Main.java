@@ -27,6 +27,7 @@ public class Main {
             System.out.println("3 - Agendamento de Consulta");
             System.out.println("4 - Prescrição de Exames");
             System.out.println("5 - Registrar Pagamento");
+            System.out.println("6 - Ver Histórico de Consultas de um Paciente");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
             
@@ -49,6 +50,8 @@ public class Main {
                 case 5:
                     registrarPagamento();
                     break;
+                case 6:
+                    historicoMedico();                
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -139,7 +142,7 @@ public class Main {
 
         Prescricao prescricaoAssociada = new Prescricao();
         Consulta consulta = new Consulta(agendamento, status, examesPrescritos, medicamentosPrescritos, valor, prescricaoAssociada);
-        consultas.add(consulta);
+        paciente.getConsultas().add(consulta);
     
         System.out.println("Consulta agendada com sucesso!");
     }
@@ -282,6 +285,37 @@ public class Main {
                 .filter(m -> m.getCRM().equals(crm))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private static void historicoMedico(){
+        System.out.println("Digite o CPF do paciente:");
+        String cpfConsulta = scanner.nextLine();
+        Paciente pacienteConsulta = encontrarPacientePorCpf(cpfConsulta);
+    
+        if (pacienteConsulta == null) {
+            System.out.println("Paciente não encontrado.");
+        }
+    
+        System.out.println("Nome: " + pacienteConsulta.getNome());
+        System.out.println("Data de Nascimento: " + pacienteConsulta.getDataNascimento());
+        System.out.println("CPF: " + pacienteConsulta.getCpf());
+        
+        List<Consulta> consultasPaciente = pacienteConsulta.getConsultas();
+        
+        if (consultasPaciente.isEmpty()) {
+            System.out.println("Nenhuma consulta encontrada.");
+        } else {
+            System.out.println("Consultas Agendadas:");
+            for (Consulta consulta : consultasPaciente) {
+                System.out.println("---------------------------");
+                System.out.println("📅 Data: " + consulta.getAgendamento().getData());
+                System.out.println("⏰ Horário: " + consulta.getAgendamento().getHorario());
+                System.out.println("👨‍⚕️ Médico: " + consulta.getAgendamento().getMedicoResponsavel().getNome());
+                System.out.println("📝 Status: " + consulta.getStatus());
+                System.out.println("💰 Valor: R$ " + consulta.getValor());
+                System.out.println("---------------------------");
+            }
+            }
     }
     
 }
